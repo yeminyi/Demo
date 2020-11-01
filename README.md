@@ -1,13 +1,13 @@
 
 ## Tech stack
 
-- ASP.NET Core 2.1 Web API
+- ASP.NET Core Web API
 - Entity Framework Core + Sqlite
 - FluentValidation
 - Unit of Work + Repository DIP (The Dependency Inversion Principle)
 - Using Serilog for the Global Error Handling and Logging
 - restful API 
-- Angular 6 + Angular Material
+- Angular + Angular Material
 
 ## Introdution
 
