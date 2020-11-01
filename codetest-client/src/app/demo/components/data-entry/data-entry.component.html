@@ -1,0 +1,60 @@
+<div>
+    <form class="post-editor-form" [formGroup]="postForm" (ngSubmit)="openConfirmDialog(postForm.value)">    
+      <mat-form-field class="post-editor-title">
+        <input matInput placeholder="Employee Name" formControlName="employee">
+        <mat-error *ngIf="postForm.controls.employee.dirty && postForm.controls.employee.errors?.required">
+          Please fill in the employee.
+        </mat-error>
+        <mat-error *ngIf="postForm.controls.employee.dirty && postForm.controls.employee.errors?.minlength">
+          The minimum length of employee is 2 characters.
+        </mat-error>
+        <mat-error *ngIf="postForm.controls.employee.dirty && postForm.controls.employee.errors?.maxlength">
+          The maximum length of employee is 50 characters.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Select the Event/Game</mat-label>
+        <mat-select  formControlName="gameTitle" >
+          <mat-option>Pls Choose one </mat-option>
+          <mat-option *ngFor="let game of games"  [value]="game.gameName">{{game.gameName}}</mat-option> 
+        </mat-select>
+        <mat-error *ngIf="postForm.controls.teamA.dirty && postForm.controls.teamA.errors?.required">
+          Please select a Event/Game.
+        </mat-error>
+      </mat-form-field> 
+      <div class="post-editor-title">
+        <mat-form-field appearance="fill">
+          <mat-label>Select the team</mat-label>
+          <mat-select  formControlName="teamA" >
+            <mat-option>Pls Choose one</mat-option>
+            <mat-option *ngFor="let team of teams"  [value]="team.teamName">{{team.teamName}}</mat-option> 
+          </mat-select>
+          <mat-error *ngIf="postForm.controls.teamA.dirty && postForm.controls.teamA.errors?.required">
+            Please select a team.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+          <mat-label>The real-time score</mat-label>
+          <input matInput  formControlName="teamAscore" type="number" placeholder="Please select the score"  min="0">
+        </mat-form-field> 
+      </div>
+      <div class="post-editor-title">
+        <mat-form-field appearance="fill">
+          <mat-label>Select the team</mat-label>
+          <mat-select  formControlName="teamB">
+            <mat-option >Pls Choose one</mat-option>
+            <mat-option *ngFor="let team of teams"  [value]="team.teamName">{{team.teamName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="postForm.controls.teamB.dirty && postForm.controls.teamB.errors?.required">
+            Please select a team.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+          <mat-label>The real-time score</mat-label>
+          <input matInput formControlName="teamBscore" type="number" placeholder="Please select the score"  min="0">
+        </mat-form-field> 
+      </div>
+      <button type="submit"  mat-raised-button color="primary" class="submit-button" [disabled]="!postForm.valid">Save</button>
+    </form>
+  </div>
+  

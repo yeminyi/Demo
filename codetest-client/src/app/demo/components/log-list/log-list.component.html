@@ -1,0 +1,23 @@
+<div *ngIf="!pageMeta">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div>
+    <mat-form-field  class="table-header">
+      <input matInput (keyup)="searchKeyUp.next($event)" [(ngModel)]="scoreParameter.gameTitle" placeholder="Filter for the Event / Game">
+    </mat-form-field>
+  </div>
+  <div *ngIf="pageMeta" class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+  [infiniteScrollContainer]="'.mat-drawer-content'" [fromRoot]="true">
+    <ng-container *ngFor="let item of scores">
+        <mat-card class="post-card">
+            <mat-card-header class="post-card-header">
+              <mat-card-title >
+                 {{item.teamA}} <span style="color:red;font-size:15px;">VS</span> {{item.teamB}} - <b>{{item.teamAScore}}</b> : <b>{{item.teamBScore}}</b>
+              </mat-card-title>
+              <mat-card-subtitle><b>{{item.gameTitle}}</b> {{item.updateTime | date: 'medium'}} by {{item.employee}}</mat-card-subtitle>
+            </mat-card-header>
+           
+          </mat-card>
+    </ng-container>
+  
+  </div>
