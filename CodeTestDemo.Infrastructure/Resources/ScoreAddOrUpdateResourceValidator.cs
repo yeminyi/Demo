@@ -32,6 +32,19 @@ namespace CodeTestDemo.Infrastructure.Resources
                 .WithMessage("maxlength|{PropertyName} max length is {MaxLength}")
                 .MinimumLength(2)
                 .WithMessage("minlength|{PropertyName} min length is {MinLength}");
+
+            RuleFor(x => x.TeamAScore)
+               .GreaterThanOrEqualTo(0)
+               .WithName("TeamAScore")
+               .WithMessage("The {PropertyName}  must > = 0");
+
+            RuleFor(x => x.TeamBScore)
+               .GreaterThanOrEqualTo(0)
+               .WithName("TeamBScore")
+               .WithMessage("The {PropertyName}  must > = 0");
+
+            RuleFor(m => m.TeamA).Must((model, field) => field != model.TeamB)
+                .WithMessage("The teams must be different");
         }
     }
 }
