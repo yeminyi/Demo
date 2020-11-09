@@ -15,14 +15,6 @@ export class ScoreService extends BaseService {
   constructor(private http: HttpClient) {
     super();
   }
-
-  // getPagedScores(postParameter?: any | ScoreParameters) {
-  //   return this.http.get(`${this.apiUrlBase}/posts`, {
-  
-  //     observe: 'response',
-  //     params: postParameter
-  //   });
-  // }
   
   getList(postParameter?: any | ScoreParameters): Observable<HttpResponse<Array<Score>>> {
     const uri = `${this.apiUrlBase}/scores`;
@@ -33,14 +25,9 @@ export class ScoreService extends BaseService {
       });
   }
   addScore(post: ScoreAdd) {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/vnd.cgzl.post.create+json',
-    //     'Accept': 'application/vnd.cgzl.hateoas+json'
-    //   })
-    // };
+       
     return this.http.post<Score>(`${this.apiUrlBase}/scores`, post);
-    // return this.http.post<Score>(`${this.apiUrlBase}/posts`, post, httpOptions);
+ 
   }
   getTeamList(): Observable<HttpResponse<Array<Team>>> {
     const uri = `${this.apiUrlBase}/teams`;
