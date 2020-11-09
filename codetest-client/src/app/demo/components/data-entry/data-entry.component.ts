@@ -16,7 +16,6 @@ import { Game } from '../../models/Game';
 })
 export class DataEntryComponent implements OnInit {
 
-  // editorSettings;
   teams: Team[];
   games: Game[];
   postForm: FormGroup;
@@ -37,25 +36,11 @@ export class DataEntryComponent implements OnInit {
       employee: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       teamA: ['', [Validators.required]],
       teamB: ['', [Validators.required]],
-      teamAscore: [0],
-      teamBscore: [0]
+      teamAScore: [0,[Validators.required,Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      teamBScore: [0,[Validators.required,Validators.pattern('^(0|[1-9][0-9]*)$')]]
     });
 
-    // this.editorSettings = this.tinymce.getSettings();
   }
-
-  // submit() {
-  //   if (this.postForm.dirty && this.postForm.valid) {
-  //     this.scoreService.addScore(this.postForm.value).subscribe(
-  //       post => {
-  //         this.router.navigate(['/demo/log-list']);
-  //       },
-  //       validationResult => {
-  //         this.snackBar.open('There are validation errors!', 'Close', { duration: 3000 });
-  //         ValidationErrorHandler.handleFormValidationErrors(this.postForm, validationResult);
-  //       });
-  //   }
-  // }
   
   getTeams() {
     this.scoreService.getTeamList()
@@ -72,7 +57,7 @@ export class DataEntryComponent implements OnInit {
   openConfirmDialog(post: ScoreAdd) {
     const confirm = {
       content: post.employee+' confirm to add : '+post.gameTitle,
-      title:post.teamA+' vs '+post.teamB+' - '+post.teamAscore+' : '+post.teamBscore,
+      title:post.teamA+' vs '+post.teamB+' - '+post.teamAScore+' : '+post.teamBScore,
       confirmAction: 'Add',
     };
 

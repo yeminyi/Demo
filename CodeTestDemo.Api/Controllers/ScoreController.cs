@@ -53,9 +53,21 @@ namespace CodeTestDemo.Api.Controllers
         [HttpGet(Name = "GetScores")]
         public async Task<IActionResult> Get(ScoreParameters scoreParameters)
         {
+            //if (!_propertyMappingContainer.ValidateMappingExistsFor<ScoreResource, Score>(scoreParameters.OrderBy))
+            //{
+            //    return BadRequest("Can't finds fields for sorting.");
+            //}
+
+            //if (!_typeHelperService.TypeHasProperties<ScoreResource>(scoreParameters.Fields))
+            //{
+            //    return BadRequest("Fields not exist.");
+            //}
+
             var scoreList = await _scoreRepository.GetAllScoresAsync(scoreParameters);
 
             var scoreResources = _mapper.Map<IEnumerable<Score>, IEnumerable<ScoreResource>>(scoreList);
+
+            var result = scoreResources.ToDynamicIEnumerable(scoreParameters.Fields);
 
             var previousPageLink = scoreList.HasPrevious ?
                 CreateScoreUri(scoreParameters, PaginationResourceUriType.PreviousPage) : null;
@@ -78,7 +90,7 @@ namespace CodeTestDemo.Api.Controllers
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             }));
 
-            return Ok(scoreResources);
+            return Ok(result);
         }
    
 
